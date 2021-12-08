@@ -1,13 +1,17 @@
-const   express             = require("express");
+const   express             = require("express"),
+        indexController     = require("../controllers/indexController");
 
 const router = express.Router();
 
 // ROUTES
-router.get("/", (req, res) => {
-    res.render("index", {
-        title : "Njala SRMS"
-    });
-});
+// INDEX ROUTE
+router.get("/", indexController.indexController);
+
+// LOGIN ROUTE
+router.get("/login", indexController.loginController);
+
+// LOGIN LOGIC
+router.post("/login", indexController.loginLogicController);
 
 // EXPORTING ROUTER
 module.exports = router;

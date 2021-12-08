@@ -1,12 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%- title %></title>
-</head>
-<body>
-    <h1>WELCOME TO NJALA STUDENT RESULT MANAGEMENT SYSTEM</h1>
+<%- include('partials/header') %>
+    <main class="container">
+        <!-- HEADING -->
+        <div class="heading">
+            <div class="logo">
+                <img src="./images/njala_logo.png" alt="Njala Logo">
+            </div>
+            <div class="njala-info">
+                <h1>NJALA UNIVERSITY</h1>
+                <h2>Office of the Registrar</h2>
+                <h3>Secretariat</h3>
+                <h4>Njala</h4>
+                <p>Tel: + 232 76-674-469</p>
+                <p>Email: registrar@njala.edu.sl</p>
+            </div>
+            <div class="logo">
+                <img src="./images/njala_logo.png" alt="Njala Logo">
+            </div>
+        </div>
+        <!-- END OF HEADING -->
+
+        <!-- INFO -->
+        <div class="info">
+            <div>
+                <h3>INDIVIDUAL PROGRESS REPORT &nbsp; &nbsp; &nbsp; &nbsp; ACADEMIC YEAR </h3>
+            </div>
+
+            <div>
+                <h3>NAME: STUDENT NAME &nbsp; &nbsp; &nbsp; &nbsp; ID. NO: STUDENT ID </h3>
+            </div>
+
+            <br>
+
+            <div>
+                <h3>PROGRAMME OF STUDENT: STUDENT'S PROGRAM AND YEAR</h3>
+            </div>
+        </div>
+        <!-- END OF INFO -->
+        <br>
+
+        <!-- GRADES -->
+        <div class="grades">
+            <table>
+                <tr>
+                    <th colspan="2">COURSE</th>
+                    <th>CODE</th>
+                    <th>CR.HRS</th>
+                    <th>GRADE EARNED</th>
+                </tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+
+                <tr></tr>
+
+                <tr>
+                    <td colspan="2">CS</td>
+                    <td>231</td>
+                    <td>3</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td colspan="2">BIT</td>
+                    <td>241</td>
+                    <td>3</td>
+                    <td>B</td>
+                </tr>
+            </table>
+        </div>
+        <!-- END OF GRADES -->
+        <br>
+        <br>
+
+        <!-- GRADE POINT AVERAGE -->
+        <div class="remarks">
+            <h3>Sessional Grade Point Average (SGPA)= &nbsp; &nbsp; GRADE POINT</h3>
+            <h3>Cumulative Grade Point Average (CGPA)= &nbsp; &nbsp; CGPA</h3>
+            <br> <br>
+            <p>Remark: </p>
+        </div>
+        <!-- END OF GRADE POINT AVERAGE -->
+        <br>
+        <br>
+        <!-- SIGNATURE AREA -->
+        <div class="signature">
+            <h3>SIGNATURE AREA</h3>
+        </div>
+        <!-- END OF SIGNATURE AREA -->
+
+        <!-- PRINT BUTTON AREA -->
+        <div class="print">
+            <button id="print">Click To Print</button>
+        </div>
+        <!-- END OF PRINT BUTTON AREA -->
+    </main>
+
+    <!-- <script type="text/javscript">
+        const print = document.getElementById("print");
+        print.addEventListener("click", function() {
+            console.log("AWESOME");
+        });
+    </script> -->
 </body>
 </html>

@@ -9,5 +9,12 @@ router.get("/", (req, res) => {
     });
 });
 
+//404 ROUTE
+router.get("*", (req, res) => {
+    res.render("admin/404", {
+        title : "404 - Page Not Found"
+    });
+});
+
 // EXPORTING THE ROUTER
 module.exports = router;
