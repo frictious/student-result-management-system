@@ -166,4 +166,8 @@ main div.print{
     main{
         border: none;
     }
+
+    main div.print{
+        display: none;
+    }
 }
