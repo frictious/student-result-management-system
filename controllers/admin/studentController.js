@@ -67,7 +67,7 @@ exports.addStudentLogic = (req, res) => {
                             Student.create({
                                 studentID : req.body.studentID,
                                 name : req.body.name,
-                                email : req.body.name,
+                                email : req.body.email,
                                 password : hash,
                                 current_year : req.body.current_year,
                                 program : req.body.program
