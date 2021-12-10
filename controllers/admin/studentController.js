@@ -84,7 +84,7 @@ exports.addStudentLogic = (req, res) => {
                                         const mailOptions = {
                                             from: process.env.EMAIL,
                                             to: req.body.email,
-                                            subject : `Njala Student Result Management System Login Information`,
+                                            subject : `Njala University Student Result Management System Login Information`,
                                             html: `<p>Dear <strong>${req.body.name}</strong>,</p>
                                             <p>This email is to inform you that you have been registered into the Njala Student Result Management System.</p>
                                             <p>Your id is: <strong>${req.body.studentID}</strong>.</p>
@@ -102,6 +102,7 @@ exports.addStudentLogic = (req, res) => {
                                         //Sending mail
                                         transport.sendMail(mailOptions, (err, mail) => {
                                             if(!err){
+                                                console.log("MAIL SENT TO STUDENT");
                                                 res.redirect("/admin/students");
                                             }else{
                                                 console.log(err);

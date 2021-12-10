@@ -47,7 +47,7 @@
                     <select class="form-control form-control-md  mb-3" name="program" id="exampleStudentProgram">
                       <option disabled selected>Select Program</option>
                       <% programs.forEach((program) => { %>
-                        <option value="<%-program.type%> <%-program.name%>"><%-program.type%> <%- program.name %></option>
+                        <option value="<%-program.name%>">(<%-program.type%>) <%- program.name %></option>
                       <% }); %>
                     </select>
 

@@ -45,7 +45,7 @@
                       <option selected><%- course.program %></option>
                       <% programs.forEach((program) => { %>
                         <% if(program.name !== course.program) { %>
-                          <option value="<%-program.type%> <%- program.name %>>"><%-program.type%> <%- program.name %></option>
+                          <option value="<%- program.name %>">(<%- program.type %>) <%- program.name %></option>
                         <% } %>
                       <% }); %>
                     </select>
