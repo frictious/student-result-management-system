@@ -1,17 +1,45 @@
-const   Admin           = require("../../models/admin"),
-        bcryptjs          = require("bcryptjs");
+const   User            = require("../../models/user"),
+        bcryptjs        = require("bcryptjs"),
+        Student         = require("../../models/user"),
+        Program         = require("../../models/program"),
+        Course          = require("../../models/course"),
+        passport        = require("passport");
+
+require("../../config/adminLogin")(passport);
 
 // DASHBOARD ROOT ROUTE
 exports.index = (req, res) => {
-    res.render("admin/index", {
-        title : "Njala SRMS Admin Panel"
+    Program.find({})
+    .then(programs => {
+        Student.find({})
+        .then(students => {
+            Course.find({})
+            .then(courses => {
+                User.find({})
+                .then(admins => {
+                    res.render("admin/index", {
+                        title : "Njala SRMS Admin Panel",
+                        programs : programs,
+                        students : students,
+                        courses : courses,
+                        admins : admins
+                    });
+                })
+            })
+        })
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
     });
 }
 
 // =====================================================================================
 // VIEW ALL USERS
 exports.viewAdmins = (req, res) => {
-    Admin.find({})
+    User.find({})
     .then(users => {
         if(users){
             res.render("admin/admin/admins", {
@@ -28,6 +56,27 @@ exports.viewAdmins = (req, res) => {
     });
 }
 
+// LOGIN ROUTE
+exports.login = (req, res) => {
+    res.render("admin/admin/login", {
+        title : "NJALA SRMS Admin Login Page"
+    });
+}
+
+// LOGIN LOGIC
+exports.loginLogic = (req, res, next) => {
+    passport.authenticate("local", {
+        successRedirect : "/admin",
+        failureRedirect : "/admin/login"
+    })(req, res, next);
+}
+
+// LOGOUT
+exports.logout = (req, res) => {
+    req.logout();
+    res.redirect("/admin/login");
+}
+
 // USERS SIGN UP FORM
 exports.signup = (req, res) => {
     res.render("admin/admin/add", {
@@ -42,7 +91,7 @@ exports.signupLogic = (req, res) => {
         .then(salt => {
             bcryptjs.hash(req.body.password, salt)
             .then(hash => {
-                Admin.create({
+                User.create({
                     name : req.body.name,
                     email : req.body.email,
                     password : hash,
@@ -70,7 +119,7 @@ exports.signupLogic = (req, res) => {
 
 // EDIT ADMIN INFORMATION
 exports.editAdmin = (req, res) => {
-    Admin.findById({_id : req.params.id})
+    User.findById({_id : req.params.id})
     .then(user => {
         if(user){
             res.render("admin/admin/update", {
@@ -90,7 +139,7 @@ exports.editAdmin = (req, res) => {
 // EDIT ADMIN INFORMATION LOGIC
 exports.editAdminLogic = (req, res) => {
     if(req.body.password === ""){
-        Admin.findByIdAndUpdate({_id : req.params.id}, {
+        User.findByIdAndUpdate({_id : req.params.id}, {
             name : req.body.name,
             email : req.body.email,
             role : req.body.role
@@ -128,7 +177,7 @@ exports.editAdminLogic = (req, res) => {
 
 // DELETE ADMIN INFORMATION
 exports.deleteAdmin = (req, res) => {
-    Admin.findByIdAndDelete({_id : req.params.id})
+    User.findByIdAndDelete({_id : req.params.id})
     .then(user => {
         if(user){
             console.log("USER INFORMATION DELETED SUCCESSFULLY");

@@ -10,7 +10,8 @@ const courseSchema = mongoose.Schema({
     creditHour : Number,
     semester : String,
     lecturer : String,
-    program : String
+    program : String,
+    year : String
 });
 
 module.exports = mongoose.model("Course", courseSchema);

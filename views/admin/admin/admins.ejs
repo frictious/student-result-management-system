@@ -27,6 +27,7 @@
                     <tbody>
                     <% let count = 1 %>
                     <% users.forEach((user) => { %>
+                      <% if(user.role !== "Student"){ %> 
                         <tr>
                           <td><a href="#"><%- count %></a></td>
                           <td><%- user.name %></td>
@@ -37,6 +38,7 @@
                           </td>
                         </tr>
                         <% count++ %>
+                      <% } %>
                     <% }) %>
                     </tbody>
                   </table>

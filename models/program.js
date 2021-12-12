@@ -10,7 +10,7 @@ const programSchema = mongoose.Schema({
     type: String,
     students : [{
         type : mongoose.Schema.Types.ObjectId,
-        ref : "Students"
+        ref : "Users"
     }],
     courses : [{
         type : mongoose.Schema.Types.ObjectId,

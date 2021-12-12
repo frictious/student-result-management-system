@@ -7,7 +7,7 @@
 
           <div class="row mb-3">
             <!-- School Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <!-- <div class="col-xl-3 col-md-6 mb-4">
               <div class="card h-100">
                 <div class="card-body">
                   <div class="row align-items-center">
@@ -21,10 +21,10 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Departments Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <!-- <div class="col-xl-3 col-md-6 mb-4">
               <div class="card h-100">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -38,7 +38,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Program Card -->
             <div class="col-xl-3 col-md-6 mb-4">
@@ -47,7 +47,11 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-uppercase mb-1">Programs</div>
-                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">366</div>
+                      <% let programCount = 0; %>
+                      <% programs.forEach((programs) => { %>
+                        <% programCount++; %>
+                      <% }); %>
+                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%- programCount %></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-users fa-2x text-info"></i>
@@ -64,7 +68,11 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-uppercase mb-1">Courses</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">280</div>
+                      <% let coursesCount = 0; %>
+                      <% courses.forEach((courses) => { %>
+                        <% coursesCount++; %>
+                      <% }); %>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><%- coursesCount %></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-comments fa-2x text-warning"></i>
@@ -75,7 +83,7 @@
             </div>
 
             <!-- Academic Year Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <!-- <div class="col-xl-3 col-md-6 mb-4">
               <div class="card h-100">
                 <div class="card-body">
                   <div class="row align-items-center">
@@ -89,7 +97,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Students Card -->
             <div class="col-xl-3 col-md-6 mb-4">
@@ -98,7 +106,11 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-uppercase mb-1">Students</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">6500</div>
+                      <% let studentsCount = 0; %>
+                      <% students.forEach((students) => { %>
+                        <% studentsCount++; %>
+                      <% }); %>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><%- studentsCount %></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-shopping-cart fa-2x text-success"></i>
@@ -115,7 +127,13 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-uppercase mb-1">Exam Officers</div>
-                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">10</div>
+                      <% let examsCount = 0; %>
+                      <% admins.forEach((admins) => { %>
+                        <% if(admins.role === "Exam Officers"){ %>
+                          <% examsCount++; %>
+                        <% } %>
+                      <% }); %>
+                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%- examsCount %></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-users fa-2x text-info"></i>
@@ -132,7 +150,13 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-uppercase mb-1">Admins</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                      <% let adminsCount = 0; %>
+                      <% admins.forEach((admins) => { %>
+                        <% if(admins.role === "Admin") { %>
+                          <% adminsCount++; %>
+                        <% } %>
+                      <% }); %>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><%- adminsCount %></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-comments fa-2x text-warning"></i>

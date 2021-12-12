@@ -30,7 +30,18 @@
                       <label for="exampleCreditHour">Course Credit Hour</label>
                       <input type="number" class="form-control" id="exampleAbbr" aria-describedby="creditHourHelp" value="<%- course.creditHour %>" name="creditHour">
                     </div>
-                    <select class="form-control form-control-md  mb-3" name="semester">
+
+                    <label for="year">Year</label>
+                    <select class="form-control form-control-md  mb-3" name="year" id="year">
+                      <option disabled selected><%- course.year %></option>
+                      <option value="Year 1">Year 1</option>
+                      <option value="Year 2">Year 2</option>
+                      <option value="Year 3">Year 3</option>
+                      <option value="Year 4">Year 4</option>
+                    </select>
+
+                    <label for="semester">Semester</label>
+                    <select class="form-control form-control-md  mb-3" name="semester" id="semester">
                       <option disabled selected><%- course.semester %></option>
                       <option value="First Semester">First Semester</option>
                       <option value="Second Semester">Second Semester</option>
@@ -41,7 +52,8 @@
                         <input type="text" class="form-control" id="exampleLecturer" aria-describedby="lecturer" value="<%- course.lecturer %>" name="lecturer">
                     </div>
 
-                    <select class="form-control form-control-md  mb-3" name="program">
+                    <label for="program">Program</label>
+                    <select class="form-control form-control-md  mb-3" name="program" id="program">
                       <option selected><%- course.program %></option>
                       <% programs.forEach((program) => { %>
                         <% if(program.name !== course.program) { %>

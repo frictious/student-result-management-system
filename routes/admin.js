@@ -2,9 +2,23 @@ const   express                 = require("express"),
         adminController         = require("../controllers/admin/adminController"),
         programController       = require("../controllers/admin/programController"),
         courseController        = require("../controllers/admin/courseController"),
-        studentController       = require("../controllers/admin/studentController");
+        studentController       = require("../controllers/admin/studentController"),
+        gradeController         = require("../controllers/admin/gradeController");
 
 const router = express.Router();
+
+// LOG IN CHECKER
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        if(req.user.role === "Admin" || req.user.role === "Exam Officer"){
+            return next();
+        }else{
+            res.redirect("/admin/logout");
+        }
+    }else{
+        res.redirect("/admin/login");
+    }
+};
 
 // ROUTES
 router.get("/", adminController.index);
@@ -73,6 +87,35 @@ router.delete("/student/:id", studentController.deleteStudent);
 // END OF STUDENT SECTION
 // =====================================================================================
 
+// =====================================================================================
+// GRADES SECTION
+// GET ALL GRADES
+router.get("/grades", gradeController.grades);
+
+// SEARCH FORM
+router.get("/grade/search", gradeController.gradeSearch);
+
+// SEARCH FORM LOGIC
+router.post("/grade/search", gradeController.gradeSearchLogic);
+
+// ADD GRADES FORM
+router.get("/grade/add/:studentID/:year/:semester/:programName", gradeController.addGrade);
+
+// ADD GRADE LOGIC
+router.post("/grade/add", gradeController.addGradeLogic);
+
+// EDIT GRADE FORM
+router.get("/grade/:id/edit", gradeController.editGrade);
+
+// EDIT GRADE LOGIC
+router.put("/grade/:id", gradeController.editGradeLogic);
+
+// DELETE GRADE
+router.delete("/grade/:id", gradeController.deleteGrade);
+
+// END OF GRADES SECTION
+// =====================================================================================
+
 
 // =====================================================================================
 // USERS SECTION
@@ -92,6 +135,15 @@ router.put("/user/:id", adminController.editAdminLogic);
 
 // DELETE USER
 router.delete("/user/:id", adminController.deleteAdmin);
+
+// LOGIN USER
+router.get("/login", adminController.login);
+
+// LOGIN USER LOGIC
+router.post("/login", adminController.loginLogic);
+
+// LOGOUT
+router.get("/logout", adminController.logout);
 
 // END OF ADMIN SECTION
 // =====================================================================================

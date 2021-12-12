@@ -1,4 +1,4 @@
-const   Student                 = require("../../models/student"),
+const   Student                 = require("../../models/user"),
         Program                 = require("../../models/program"),
         nodemailer              = require("nodemailer"),
         bcrypt                  = require("bcryptjs");
@@ -70,7 +70,8 @@ exports.addStudentLogic = (req, res) => {
                                 email : req.body.email,
                                 password : hash,
                                 current_year : req.body.current_year,
-                                program : req.body.program
+                                program : req.body.program,
+                                role : "Student"
                             })
                             .then(student => {
                                 Program.findOne({name : req.body.program})
@@ -86,14 +87,14 @@ exports.addStudentLogic = (req, res) => {
                                             to: req.body.email,
                                             subject : `Njala University Student Result Management System Login Information`,
                                             html: `<p>Dear <strong>${req.body.name}</strong>,</p>
-                                            <p>This email is to inform you that you have been registered into the Njala Student Result Management System.</p>
+                                            <p>This email is to inform you that you have been registered into the Njala University Student Result Management System.</p>
                                             <p>Your id is: <strong>${req.body.studentID}</strong>.</p>
                                             <p>Your email is <strong>${req.body.email}</strong>.</p>
                                             <p>And your password is <strong>${req.body.password}</strong>.</p>
                                             <p>Please keep your login information private. If you so wish to change your password for security purposes, you can do so via the portal</p>
 
-                                            <p>Bear in  mind that if you loose the new password, you will have to pay
-                                            <strong>Le 50,000</strong> for your password to be changed</p>
+                                            <p>Bear in  mind that you can and should change your password so it can be kept safe.</p>
+                                            
                                             <br><br>
                                             <p>Sincerely</p>
                                             <p>Exams Office</p>`

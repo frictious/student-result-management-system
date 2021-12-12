@@ -15,26 +15,34 @@
                       class="fas fa-chevron-right"></i></a>
                 </div>
                 <div class="table-responsive">
-                  <table class="table align-items-center table-flush">
+                  <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                     <thead class="thead-light">
                       <tr>
                         <th>No</th>
                         <th>Course Name</th>
-                        <th>Abbreviation</th>
                         <th>Course Code</th>
                         <th>Semester</th>
                         <th>Lecturer</th>
                         <th colspan="2" class="text-center">Action</th>
                       </tr>
                     </thead>
+                    <tfoot>
+                      <tr>
+                        <th>No</th>
+                        <th>Course Name</th>
+                        <th>Course Code</th>
+                        <th>Semester</th>
+                        <th>Lecturer</th>
+                        <th colspan="2" class="text-center">Action</th>
+                      </tr>
+                    </tfoot>
                     <tbody>
                       <% let count = 1 %>
                       <% courses.forEach((course) => { %> 
                         <tr>
                           <td><%- count %></td>
                           <td><%- course.name %></td>
-                          <td><%- course.abbr %></td>
-                          <td><%- course.courseCode %></td>
+                          <td><%- course.abbr %> <%- course.courseCode %></td>
                           <td><%- course.semester %></td>
                           <td><%- course.lecturer %></td>
                           <td class="text-center"><a href="/admin/course/<%-course._id%>/edit" class="btn btn-sm btn-primary">Edit</a></td>

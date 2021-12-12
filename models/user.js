@@ -9,7 +9,8 @@ const studentSchema = mongoose.Schema({
     email : String,
     password : String,
     current_year : String,
-    program : String
+    program : String,
+    role : String
 });
 
 module.exports = mongoose.model("Students", studentSchema);

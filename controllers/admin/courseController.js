@@ -48,7 +48,8 @@ exports.addCourseLogic = (req, res) => {
         creditHour : req.body.creditHour,
         semester : req.body.semester,
         lecturer : req.body.lecturer,
-        program : req.body.program
+        program : req.body.program,
+        year : req.body.year
     })
     .then(course => {
         if(course){

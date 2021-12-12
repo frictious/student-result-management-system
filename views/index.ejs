@@ -1,105 +1,113 @@
 <%- include('partials/header') %>
-    <main class="container">
-        <!-- HEADING -->
-        <div class="heading">
-            <div class="logo">
-                <img src="./images/njala_logo.png" alt="Njala Logo">
+    <% if(user) { %>
+        <main class="container">
+            <!-- HEADING -->
+            <div class="heading">
+                <div class="logo">
+                    <img src="./images/njala_logo.png" alt="Njala Logo">
+                </div>
+                <div class="njala-info">
+                    <h1>NJALA UNIVERSITY</h1>
+                    <h2>Office of the Registrar</h2>
+                    <h3>Secretariat</h3>
+                    <h4>Njala</h4>
+                    <p>Tel: + 232 76-674-469</p>
+                    <p>Email: registrar@njala.edu.sl</p>
+                </div>
+                <div class="logo">
+                    <img src="./images/njala_logo.png" alt="Njala Logo">
+                </div>
             </div>
-            <div class="njala-info">
-                <h1>NJALA UNIVERSITY</h1>
-                <h2>Office of the Registrar</h2>
-                <h3>Secretariat</h3>
-                <h4>Njala</h4>
-                <p>Tel: + 232 76-674-469</p>
-                <p>Email: registrar@njala.edu.sl</p>
-            </div>
-            <div class="logo">
-                <img src="./images/njala_logo.png" alt="Njala Logo">
-            </div>
-        </div>
-        <!-- END OF HEADING -->
+            <!-- END OF HEADING -->
 
-        <!-- INFO -->
-        <div class="info">
-            <div>
-                <h3>INDIVIDUAL PROGRESS REPORT &nbsp; &nbsp; &nbsp; &nbsp; ACADEMIC YEAR </h3>
-            </div>
+            <% let academicYear; %>
+            <% grades.forEach((grade) => { %> 
+                <% academicYear = grade.academicYear %>
+            <% }); %>
 
-            <div>
-                <h3>NAME: STUDENT NAME &nbsp; &nbsp; &nbsp; &nbsp; ID. NO: STUDENT ID </h3>
-            </div>
+            <!-- INFO -->
+            <div class="info">
+                <div>
+                    <h3>INDIVIDUAL PROGRESS REPORT &nbsp; &nbsp; &nbsp; &nbsp; <%- academicYear %> </h3>
+                </div>
 
+                <div>
+                    <h3>NAME: <%- student.name.toUpperCase() %> &nbsp; &nbsp; &nbsp; &nbsp; ID. NO: <%- student.studentID %> </h3>
+                </div>
+
+                <br>
+
+                <div>
+                    <h3>PROGRAMME OF STUDENT: <%- program.name.toUpperCase() %> <%- student.current_year.toUpperCase() %></h3>
+                </div>
+            </div>
+            <!-- END OF INFO -->
             <br>
 
-            <div>
-                <h3>PROGRAMME OF STUDENT: STUDENT'S PROGRAM AND YEAR</h3>
+            <!-- GRADES -->
+            <div class="grades">
+                <table>
+                    <tr>
+                        <th colspan="2">COURSE</th>
+                        <th>CODE</th>
+                        <th>CR.HRS</th>
+                        <th>GRADE EARNED</th>
+                    </tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+
+                    <tr></tr>
+
+                    
+                    <% grades.forEach((grade) => { %> 
+                        <% courses.forEach((course) => { %> 
+                            <% if(course.name === grade.course) { %>
+                                <tr>
+                                    <td colspan="2"><%- course.abbr %></td>
+                                    <td><%- course.courseCode %></td>
+                                    <td><%- course.creditHour %></td>
+                                    <td><%- grade.grade %></td>
+                                </tr>    
+                            <% } %>
+                        <% }); %>
+                    <% }); %>
+                </table>
             </div>
-        </div>
-        <!-- END OF INFO -->
-        <br>
+            <!-- END OF GRADES -->
+            <br>
+            <br>
 
-        <!-- GRADES -->
-        <div class="grades">
-            <table>
-                <tr>
-                    <th colspan="2">COURSE</th>
-                    <th>CODE</th>
-                    <th>CR.HRS</th>
-                    <th>GRADE EARNED</th>
-                </tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
+            <!-- GRADE POINT AVERAGE -->
+            <div class="remarks">
+                <h3>Sessional Grade Point Average (SGPA)= &nbsp; &nbsp; GRADE POINT</h3>
+                <h3>Cumulative Grade Point Average (CGPA)= &nbsp; &nbsp; CGPA</h3>
+                <br> <br>
+                <p>Remark: </p>
+            </div>
+            <!-- END OF GRADE POINT AVERAGE -->
+            <br>
+            <br>
+            <!-- SIGNATURE AREA -->
+            <div class="signature">
+                <h3>To get copy with signature and stamp, kindly visit the Secretariat</h3>
+            </div>
+            <!-- END OF SIGNATURE AREA -->
 
-                <tr></tr>
-
-                <tr>
-                    <td colspan="2">CS</td>
-                    <td>231</td>
-                    <td>3</td>
-                    <td>A</td>
-                </tr>
-                <tr>
-                    <td colspan="2">BIT</td>
-                    <td>241</td>
-                    <td>3</td>
-                    <td>B</td>
-                </tr>
-            </table>
-        </div>
-        <!-- END OF GRADES -->
-        <br>
-        <br>
-
-        <!-- GRADE POINT AVERAGE -->
-        <div class="remarks">
-            <h3>Sessional Grade Point Average (SGPA)= &nbsp; &nbsp; GRADE POINT</h3>
-            <h3>Cumulative Grade Point Average (CGPA)= &nbsp; &nbsp; CGPA</h3>
-            <br> <br>
-            <p>Remark: </p>
-        </div>
-        <!-- END OF GRADE POINT AVERAGE -->
-        <br>
-        <br>
-        <!-- SIGNATURE AREA -->
-        <div class="signature">
-            <h3>SIGNATURE AREA</h3>
-        </div>
-        <!-- END OF SIGNATURE AREA -->
-
-        <!-- PRINT BUTTON AREA -->
-        <div class="print">
-            <button id="print">Click To Print</button>
-        </div>
-        <!-- END OF PRINT BUTTON AREA -->
-    </main>
+            <!-- PRINT BUTTON AREA -->
+            <div class="print">
+                <button id="print">Click To Print</button>
+            </div>
+            <!-- END OF PRINT BUTTON AREA -->
+        </main>
+    <% } %>
 
     <script type="text/javascript" src="js/index.js"></script>
 </body>
