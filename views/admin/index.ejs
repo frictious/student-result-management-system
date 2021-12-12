@@ -108,7 +108,9 @@
                       <div class="text-xs font-weight-bold text-uppercase mb-1">Students</div>
                       <% let studentsCount = 0; %>
                       <% students.forEach((students) => { %>
-                        <% studentsCount++; %>
+                        <% if(student.role === "Student") { %>
+                          <% studentsCount++; %>
+                        <% } %>
                       <% }); %>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"><%- studentsCount %></div>
                     </div>
