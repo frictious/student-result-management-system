@@ -58,7 +58,7 @@ exports.addCourseLogic = (req, res) => {
                 if(program){
                     program.courses.push(course);//ADDING THE NEWLY CREATED COURSE TO PROGRAM
                     program.save();//SAVING THE ENTRY
-                    res.redirect("/admin/courses");
+                    res.redirect("/admin/course/add");
                 }
             })
         }

@@ -81,6 +81,12 @@ router.get("/student/add", isLoggedIn, studentController.addStudent);
 // ADD STUDENT LOGIC
 router.post("/student/add", studentController.addStudentLogic);
 
+// EDIT STUDENT FORM
+router.get("/student/:id/edit", studentController.editStudent);
+
+// EDIT STUDENT INFORMATION LOGIC
+router.put("/student/:id", studentController.editStudentLogic);
+
 // DELETE STUDENT INFROMATION
 router.delete("/student/:id", isLoggedIn, studentController.deleteStudent);
 

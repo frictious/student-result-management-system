@@ -4,7 +4,7 @@
             <!-- HEADING -->
             <div class="heading">
                 <div class="logo">
-                    <img src="./images/njala_logo.png" alt="Njala Logo">
+                    <img src="/images/njala_logo.png" alt="Njala Logo">
                 </div>
                 <div class="njala-info">
                     <h1>NJALA UNIVERSITY</h1>
@@ -15,7 +15,7 @@
                     <p>Email: registrar@njala.edu.sl</p>
                 </div>
                 <div class="logo">
-                    <img src="./images/njala_logo.png" alt="Njala Logo">
+                    <img src="/images/njala_logo.png" alt="Njala Logo">
                 </div>
             </div>
             <!-- END OF HEADING -->
@@ -38,7 +38,7 @@
                 <br>
 
                 <div>
-                    <h3>PROGRAMME OF STUDENT: <%- program.name.toUpperCase() %> <%- student.current_year.toUpperCase() %></h3>
+                    <h3>PROGRAMME OF STUDENT: <%- program.name.toUpperCase() %> <%- year.toUpperCase() %></h3>
                 </div>
             </div>
             <!-- END OF INFO -->
@@ -66,19 +66,40 @@
 
                     <tr></tr>
 
-                    
+                    <% let gpa = 0; %>
+                    <% let cgpa = 0; %>
+                    <% let cHour = 0; %>
+                    <% let grade = 0; %>
+                    <% let count = 0; %>
                     <% grades.forEach((grade) => { %> 
                         <% courses.forEach((course) => { %> 
-                            <% if(course.name === grade.course) { %>
+                            <% if(course.name === grade.course && course.year === year) { %>
                                 <tr>
                                     <td colspan="2"><%- course.abbr %></td>
                                     <td><%- course.courseCode %></td>
                                     <td><%- course.creditHour %></td>
                                     <td><%- grade.grade %></td>
                                 </tr>    
+                                <% if(grade.grade === "A") { %> 
+                                    <% gpa += 5; %>
+                                <% } else if(grade.grade === "B") { %> 
+                                    <% gpa += 4; %>
+                                <% } else if(grade.grade === "C") { %> 
+                                    <% gpa += 3; %>
+                                <% } else if(grade.grade === "D") { %> 
+                                    <% gpa += 2; %>
+                                <% } else if(grade.grade === "E") { %> 
+                                    <% gpa += 1; %>
+                                <% } else if(grade.grade === "F") { %> 
+                                    <% gpa += 0; %>
+                                <% } %>
+                                <% cHour += course.creditHour; %>
+                                <% count += gpa * course.creditHour; %>
+                                <% gpa = 0; %>
                             <% } %>
                         <% }); %>
                     <% }); %>
+                    <% grade = count / cHour; %>
                 </table>
             </div>
             <!-- END OF GRADES -->
@@ -87,10 +108,15 @@
 
             <!-- GRADE POINT AVERAGE -->
             <div class="remarks">
-                <h3>Sessional Grade Point Average (SGPA)= &nbsp; &nbsp; GRADE POINT</h3>
-                <h3>Cumulative Grade Point Average (CGPA)= &nbsp; &nbsp; CGPA</h3>
+                <h3>Sessional Grade Point Average (SGPA) = &nbsp; &nbsp; <%- grade.toString().substring(0, 4) %></h3>
                 <br> <br>
-                <p>Remark: </p>
+                <p>Remark: 
+                    <% if(grade >= 3 && grade <= 5) { %>
+                        Promoted on clear standing
+                    <% } else { %>
+                        To Repeat
+                    <% } %>
+                </p>
             </div>
             <!-- END OF GRADE POINT AVERAGE -->
             <br>
@@ -109,6 +135,6 @@
         </main>
     <% } %>
 
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
 </body>
 </html>

@@ -3,9 +3,9 @@ const   LocalStrategy               = require("passport-local").Strategy,
         User                        = require("../models/user");
     
 module.exports = ((passport)=> {
-    passport.use(new LocalStrategy({usernameField : "studentID"}, (studentID, password, done) => {
+    passport.use(new LocalStrategy({usernameField : "email"}, (email, password, done) => {
         User.findOne({
-            studentID : studentID
+            email : email
         }).then(user => {
             if(user){
                 //Comparing if the password entered matches the saved password

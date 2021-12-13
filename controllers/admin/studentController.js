@@ -131,9 +131,16 @@ exports.editStudent = (req, res) => {
     Student.findById({_id : req.params.id})
     .then(student => {
         if(student){
-            res.render("admin/students/update", {
-                title : "Njala SRMS Student Information Edit Form"
-            });
+            Program.find({})
+            .then(programs => {
+                if(programs){
+                    res.render("admin/students/update", {
+                        title : "Njala SRMS Student Information Edit Form",
+                        student : student,
+                        programs : programs
+                    });
+                }
+            })
         }
     })
     .catch(err => {
@@ -146,77 +153,82 @@ exports.editStudent = (req, res) => {
 
 // EDIT STUDENT LOGIC
 exports.editStudentLogic = (req, res) => {
-    if(req.body.password === ""){
-        Student.findByIdAndUpdate({_id : req.params.id}, {
-            studentID : req.body.studentID,
-            name : req.body.name,
-            email : req.body.name,
-            current_year : req.body.current_year,
-            program : req.body.program
-        })
-        .then(student => {
-            if(student){
-                console.log("STUDENT INFORMATION UPDATED SUCCESSFULLY");
-                res.redirect("/admin/students");
-            }
-        })
-    }else{
-        bcrypt.genSalt(10)
-        .then(salt => {
-            bcrypt.hash(req.body.password, salt)
-            .then(hash => {
-                if(hash){
-                    Student.create({
-                        studentID : req.body.studentID,
-                        name : req.body.name,
-                        email : req.body.name,
-                        password : hash,
-                        current_year : req.body.current_year,
-                        program : req.body.program
-                    })
-                    .then(student => {
-                        Program.findOne({name : req.body.program})
-                        .then(program => {
-                            if(program){
-                                program.students.push(student);//ADDING STUDENT TO THAT PROGRAM
-                                program.save();//SAVING THE STUDENT ID TO THAT PROGRAM
+    Student.findByIdAndUpdate({_id : req.params.id}, {
+        studentID : req.body.studentID,
+        name : req.body.name,
+        email : req.body.email,
+        current_year : req.body.current_year,
+        program : req.body.program
+    })
+    .then(student => {
+        if(student){
+            console.log("STUDENT INFORMATION UPDATED SUCCESSFULLY");
+            res.redirect("/admin/students");
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
+    });
+    // else{
+    //     bcrypt.genSalt(10)
+    //     .then(salt => {
+    //         bcrypt.hash(req.body.password, salt)
+    //         .then(hash => {
+    //             if(hash){
+    //                 Student.create({
+    //                     studentID : req.body.studentID,
+    //                     name : req.body.name,
+    //                     email : req.body.name,
+    //                     password : hash,
+    //                     current_year : req.body.current_year,
+    //                     program : req.body.program
+    //                 })
+    //                 .then(student => {
+    //                     Program.findOne({name : req.body.program})
+    //                     .then(program => {
+    //                         if(program){
+    //                             program.students.push(student);//ADDING STUDENT TO THAT PROGRAM
+    //                             program.save();//SAVING THE STUDENT ID TO THAT PROGRAM
                                 
-                                //Send mail to student after successful registration
-                                const mailOptions = {
-                                    from: process.env.EMAIL,
-                                    to: req.body.email,
-                                    subject : `Njala Student Result Management System Login Information`,
-                                    html: `<p>Dear <strong>${req.body.name}</strong>,</p>
-                                    <p>This email is to inform you that your password just changed, if this was not you, kindly use the link below to change your password and secure your account.</p>
+    //                             //Send mail to student after successful registration
+    //                             const mailOptions = {
+    //                                 from: process.env.EMAIL,
+    //                                 to: req.body.email,
+    //                                 subject : `Njala Student Result Management System Login Information`,
+    //                                 html: `<p>Dear <strong>${req.body.name}</strong>,</p>
+    //                                 <p>This email is to inform you that your password just changed, if this was not you, kindly use the link below to change your password and secure your account.</p>
                                     
-                                    <p>If this was you, ignore this message.</p>
+    //                                 <p>If this was you, ignore this message.</p>
 
-                                    <br><br>
-                                    <p>Sincerely</p>
-                                    <p>Exams Office</p>`
-                                }
+    //                                 <br><br>
+    //                                 <p>Sincerely</p>
+    //                                 <p>Exams Office</p>`
+    //                             }
         
-                                //Sending mail
-                                transport.sendMail(mailOptions, (err, mail) => {
-                                    if(!err){
-                                        res.redirect("/admin/students");
-                                    }else{
-                                        console.log(err);
-                                    }
-                                });
-                            }
-                        })
-                    })
-                }
-            })
-        })
-        .catch(err => {
-            if(err){
-                console.log(err);
-                res.redirect("back");
-            }
-        });
-    }
+    //                             //Sending mail
+    //                             transport.sendMail(mailOptions, (err, mail) => {
+    //                                 if(!err){
+    //                                     res.redirect("/admin/students");
+    //                                 }else{
+    //                                     console.log(err);
+    //                                 }
+    //                             });
+    //                         }
+    //                     })
+    //                 })
+    //             }
+    //         })
+    //     })
+    //     .catch(err => {
+    //         if(err){
+    //             console.log(err);
+    //             res.redirect("back");
+    //         }
+    //     });
+    // }
 }
 
 // DELETE STUDENT

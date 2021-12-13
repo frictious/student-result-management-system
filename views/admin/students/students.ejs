@@ -40,20 +40,22 @@
                     <tbody>
                       <% let count = 1; %>
                       <% students.forEach((student) => { %>
-                        <tr>
-                          <td><%- count %></td>
-                          <td><%- student.name %></td>
-                          <td><%- student.studentID %></td>
-                          <td><%- student.current_year %></td>
-                          <td><%- student.program %></td>
-                          <td><a href="/admin/student/<%- student._id %>/edit" class="btn btn-sm btn-primary">Edit</a>
-                          <td>
-                            <form action="/admin/student/<%-student._id %>?_method=DELETE" method="POST">
-                              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                          </td>
-                        </tr>
-                        <% count++; %>
+                        <% if(student.role === "Student") { %>
+                          <tr>
+                            <td><%- count %></td>
+                            <td><%- student.name %></td>
+                            <td><%- student.studentID %></td>
+                            <td><%- student.current_year %></td>
+                            <td><%- student.program %></td>
+                            <td><a href="/admin/student/<%- student._id %>/edit" class="btn btn-sm btn-primary">Edit</a>
+                            <td>
+                              <form action="/admin/student/<%-student._id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                              </form>
+                            </td>
+                          </tr>
+                          <% count++; %>
+                        <% } %>
                       <% }); %>
                     </tbody>
                   </table>
