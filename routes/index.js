@@ -32,6 +32,21 @@ router.post("/login", indexController.loginLogicController);
 // LOGOUT LOGIC
 router.get("/logout", indexController.logout);
 
+// FORGOT PASSWORD
+router.get("/forgotpassword", indexController.forgotPassword);
+
+// FORGOT PASSWORD LOGIC
+router.post("/forgotpassword", indexController.forgotPasswordLogic);
+
+// PASSWORD RESET LINK MESSAGE
+router.get("/passwordresetlink", indexController.resetpasswordmessage);
+
+// GET RESET PASSWORD PAGE
+router.get("/resetpassword/:id/:studentID", indexController.resetpassword);
+
+// RESET PASSWORD LOGIC
+router.put("/resetpassword/:id/:studentID", indexController.resetpasswordLogic);
+
 // GRADE SEARCH FORM
 router.get("/grade/search", indexController.gradeSearch);
 
