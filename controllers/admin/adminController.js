@@ -158,20 +158,31 @@ exports.editAdminLogic = (req, res) => {
             }
         })
     }else{
-        Admin.findByIdAndUpdate({_id : req.params.id}, req.body)
-        .then(user => {
-            if(user){
-                console.log(user);
-                console.log("USERS INFORMATION UPDATED SUCCESSFULLY");
-                res.redirect("/admin/users");
-            }
+        bcryptjs.genSalt(10)
+        .then(salt => {
+            bcryptjs.hash(req.body.password, salt)
+            .then(hash => {
+                User.findByIdAndUpdate({_id : req.params.id}, {
+                    name : req.body.name,
+                    email : req.body.email,
+                    password : hash,
+                    role : req.body.role
+                })
+                .then(user => {
+                    if(user){
+                        console.log(user);
+                        console.log("USERS INFORMATION UPDATED SUCCESSFULLY");
+                        res.redirect("back");
+                    }
+                })
+            })
         })
         .catch(err => {
             if(err){
                 console.log(err);
                 res.redirect("back");
             }
-        })
+        });
     }
 }
 
