@@ -8,17 +8,17 @@ const   express                 = require("express"),
 const router = express.Router();
 
 // LOG IN CHECKER
-function log(req, res, next){
-    if(req.isAuthenticated()){
-        if(req.user.role === "Admin" || req.user.role === "Exam Officer"){
-            return next();
-        }else{
-            res.redirect("/admin/logout");
-        }
-    }else{
-        res.redirect("/admin/login");
-    }
-};
+// function log(req, res, next){
+//     if(req.isAuthenticated()){
+//         if(req.user.role === "Admin" || req.user.role === "Exam Officer"){
+//             return next();
+//         }else{
+//             res.redirect("/admin/logout");
+//         }
+//     }else{
+//         res.redirect("/admin/login");
+//     }
+// };
 
 // ROUTES
 router.get("/",  adminController.index);
