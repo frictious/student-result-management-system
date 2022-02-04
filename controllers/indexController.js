@@ -92,7 +92,7 @@ exports.forgotPasswordLogic = (req, res) => {
     Student.findOne({email : req.body.email, studentID : req.body.studentID})
     .then(student => {
         if(student){
-            console.log(req.headers.host);
+            // console.log(req.headers.host);
             const link = `${req.headers.host}/resetpassword/${student._id}/${student.studentID}`
             console.log(`"${link}"`);
             //Send mail to student after successful registration
