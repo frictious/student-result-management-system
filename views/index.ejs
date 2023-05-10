@@ -71,6 +71,8 @@
                     <% let cHour = 0; %>
                     <% let grade = 0; %>
                     <% let count = 0; %>
+                    <% let sgpa = 0; %>
+                    <% let present_year = 0; %>
                     <% grades.forEach((grade) => { %> 
                         <% courses.forEach((course) => { %> 
                             <% if(course.name === grade.course && course.year === year) { %>
@@ -98,6 +100,7 @@
                                 <% gpa = 0; %>
                             <% } %>
                         <% }); %>
+                        <% present_year = grade.student_year; %>
                     <% }); %>
                     <% grade = count / cHour; %>
                 </table>

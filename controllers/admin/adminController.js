@@ -3,9 +3,20 @@ const   User            = require("../../models/user"),
         Student         = require("../../models/user"),
         Program         = require("../../models/program"),
         Course          = require("../../models/course"),
+        nodemailer      = require("nodemailer"),
         passport        = require("passport");
 
 require("../../config/adminLogin")(passport);
+
+//Nodemailer configuration
+const transport = nodemailer.createTransport({
+    service : "gmail",
+    auth:{
+        type: "login",
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+    }
+});
 
 // DASHBOARD ROOT ROUTE
 exports.index = (req, res) => {
@@ -183,6 +194,115 @@ exports.editAdminLogic = (req, res) => {
                 res.redirect("back");
             }
         });
+    }
+}
+
+// FORGOT PASSWORD ROUTE
+exports.forgotPassword = (req, res) => {
+    res.render("admin/forgot_password", {
+        title : "Njala SRMS Forgot Password Page"
+    });
+}
+
+// FORGOT PASSWORD LOGIC
+exports.forgotPasswordLogic = (req, res) => {
+    User.findOne({email : req.body.email})
+    .then(user => {
+        if(user){
+            // console.log(req.headers.host);
+            const link = `${req.headers.host}/resetpassword/${user._id}`
+            console.log(`"${link}"`);
+            //Send mail to admin after successful registration
+            const mailOptions = {
+                from: process.env.EMAIL,
+                to: req.body.email,
+                subject : `Njala University SRMS Password Reset`,
+                html: `<p>Dear <strong>${user.name}</strong>,</p>
+                <p>A request was made to reset your password. The link to resetting your password is given below.</p>
+
+                <a href=http://${link}>Click Here</a>
+                
+                <p>Please keep your login information private. If you so wish to change your password for security purposes, you can do so via the portal</p>
+
+                <p>Bear in  mind that you can and should change your password so it can be kept safe.</p>
+                
+                <br><br>
+                <p>Sincerely</p>
+                <p>Exams Office</p>`
+            }
+
+            //Sending mail
+            transport.sendMail(mailOptions, (err, mail) => {
+                if(!err){
+                    console.log("PASSWORD RESET MAIL SENT TO ADMIN");
+                    res.redirect("/admin/passwordresetlink");
+                }else{
+                    console.log(err);
+                }
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.redirect("back");
+    })
+}
+
+// RESET PASSWORD LINK MESSAGE
+exports.resetpasswordmessage = (req, res) => {
+    res.render("admin/resetpasswordlink", {
+        title : "Njala SRMS Password Reset Link Message"
+    });
+}
+
+// RESET PASSWORD PAGE
+exports.resetpassword = (req, res) => {
+    User.findById({_id : req.params.id})
+    .then(user => {
+        if(user){
+            // console.dir(res);
+            res.render("admin/reset_password", {
+                title : "Njal SRMS Reset Admin Password",
+                user : user
+            });
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
+    });
+}
+
+// RESET PASSWORD LOGIC
+exports.resetpasswordLogic = (req, res) => {
+    if(req.body.password === req.body.repassword){
+        bcryptjs.genSalt(10)
+        .then(salt => {
+            bcryptjs.hash(req.body.password, salt)
+            .then(hash => {
+                if(hash){
+                    User.findByIdAndUpdate({_id : req.params.id}, {password : hash})
+                    .then(user => {
+                        if(user){
+                            console.log("ADMIN PASSWORD CHANGED SUCCESSFULLY");
+                            res.redirect("/login");
+                        }
+                    })
+                    
+                }
+            })
+        })
+        .catch(err => {
+            if(err){
+                console.log(err);
+                res.redirect("back");
+            }
+        });
+    }else{
+        console.log("PASSWORDS DO NOT MATCH");
+        res.redirect("back");
     }
 }
 

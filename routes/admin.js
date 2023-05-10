@@ -128,7 +128,7 @@ router.delete("/grade/:id", gradeController.deleteGrade);
 router.get("/users", isLoggedIn, adminController.viewAdmins);
 
 // ADD USERS
-router.get("/user/add", isLoggedIn, adminController.signup);
+router.get("/user/add", adminController.signup);
 
 // ADD USERS LOGIC
 router.post("/user/add", adminController.signupLogic);
@@ -150,6 +150,21 @@ router.post("/login", adminController.loginLogic);
 
 // LOGOUT
 router.get("/logout", adminController.logout);
+
+// FORGOT PASSWORD
+router.get("/forgotpassword", adminController.forgotPassword);
+
+// FORGOT PASSWORD LOGIC
+router.post("/forgotpassword", adminController.forgotPasswordLogic);
+
+// PASSWORD RESET LINK MESSAGE
+router.get("/passwordresetlink", adminController.resetpasswordmessage);
+
+// GET RESET PASSWORD PAGE
+router.get("/resetpassword/:id", adminController.resetpassword);
+
+// RESET PASSWORD LOGIC
+router.put("/resetpassword/:id", adminController.resetpasswordLogic);
 
 // END OF ADMIN SECTION
 // =====================================================================================
