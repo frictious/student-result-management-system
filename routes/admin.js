@@ -128,7 +128,7 @@ router.delete("/grade/:id", gradeController.deleteGrade);
 router.get("/users", isLoggedIn, adminController.viewAdmins);
 
 // ADD USERS
-router.get("/user/add", adminController.signup);
+router.get("/user/add", isLoggedIn, adminController.signup);
 
 // ADD USERS LOGIC
 router.post("/user/add", adminController.signupLogic);
