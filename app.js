@@ -12,6 +12,7 @@ require("dotenv").config();
 // CONFIG
 // MONGOOSE CONNECTION
 global.Promise = mongoose.Promise
+mongoose.set({ strictQuery: false });
 mongoose.connect(process.env.MONGODB, {
     useNewUrlParser : true,
     useUnifiedTopology : true

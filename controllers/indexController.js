@@ -222,6 +222,8 @@ exports.gradeSearchLogic = (req, res) => {
 
 // LOGOUT LOGIC
 exports.logout = (req, res) => {
-    req.logout();
-    res.redirect("/login");
+    req.logout((err) => {
+        if (err) { return next(err); }
+        res.redirect('/login');
+    });
 }
