@@ -48,7 +48,7 @@ router.get("/resetpassword/:id/:studentID", indexController.resetpassword);
 router.put("/resetpassword/:id/:studentID", indexController.resetpasswordLogic);
 
 // GRADE SEARCH FORM
-router.get("/grade/search", isLoggedIn, indexController.gradeSearch);
+router.get("/grade/search", indexController.gradeSearch);
 
 // GRADE SEARCH LOGIC
 router.post("/grade/search", indexController.gradeSearchLogic);
