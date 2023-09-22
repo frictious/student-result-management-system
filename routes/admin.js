@@ -149,7 +149,7 @@ router.get("/login", adminController.login);
 router.post("/login", adminController.loginLogic);
 
 // LOGOUT
-router.get("/logout", adminController.logout);
+router.post("/logout", adminController.logout);
 
 // FORGOT PASSWORD
 router.get("/forgotpassword", adminController.forgotPassword);
