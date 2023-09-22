@@ -83,9 +83,11 @@ exports.loginLogic = (req, res, next) => {
 }
 
 // LOGOUT
-exports.logout = (req, res) => {
-    req.logout();
-    res.redirect("/admin/login");
+exports.logout = (req, res, next) => {
+    req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/admin/login');
+  });
 }
 
 // USERS SIGN UP FORM
